@@ -5,7 +5,13 @@ const { restoreAllSessions } = require('./sessionManager');
 const { startScheduler } = require('./scheduler');
 
 const app = express();
-app.use(cors());
+
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'x-api-key', 'Authorization']
+}));
+
 app.use(express.json());
 
 app.use('/api/health', require('./routes/health'));
