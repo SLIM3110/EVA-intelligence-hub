@@ -10,18 +10,26 @@ const statuses = new Map();
 async function updateSupabaseStatus(agentId, status) {
   try {
     const baseUrl = process.env.SUPABASE_URL || 'https://guwmfmwyqrwvufchkzfc.supabase.co';
-    await fetch(
+    const serviceKey = process.env.SUPABASE_SERVICE_KEY;
+    
+    const res = await fetch(
       `${baseUrl}/rest/v1/profiles?id=eq.${agentId}`,
       {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'apikey': process.env.SUPABASE_SERVICE_KEY,
-          'Authorization': `Bearer ${process.env.SUPABASE_SERVICE_KEY}`
+          'apikey': serviceKey,
+          'Authorization': `Bearer ${serviceKey}`
         },
         body: JSON.stringify({ whatsapp_session_status: status })
       }
     );
+    
+    if (!res.ok) {
+      console.error(`Failed to update status for agent ${agentId}:`, await res.text());
+    } else {
+      console.log(`Status updated to ${status} for agent ${agentId}`);
+    }
   } catch (e) {
     console.error('Supabase status update error:', e.message);
   }
