@@ -59,10 +59,14 @@ async function initClient(agentId) {
   clients.set(agentId, client);
 
   client.on('qr', async (qr) => {
-    const base64 = await QRCode.toDataURL(qr);
+    const base64 = await QRCode.toDataURL(qr, { 
+      errorCorrectionLevel: 'M',
+      margin: 2,
+      width: 300
+    });
     qrCodes.set(agentId, base64);
     statuses.set(agentId, 'pending');
-    console.log(`QR ready for agent ${agentId}`);
+    console.log(`QR ready for agent ${agentId} — scan within 60 seconds`);
     await updateSupabaseStatus(agentId, 'pending');
   });
 
