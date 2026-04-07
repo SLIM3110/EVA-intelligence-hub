@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(node --check src/storage.js)",
+      "Bash(node --check src/sessionManager.js)",
+      "Bash(node --check src/server.js)",
+      "Bash(node --check src/scheduler.js)",
+      "Bash(cp -r backend/src .)",
+      "Bash(cp backend/package.json .)",
+      "Bash(cp backend/package-lock.json .)",
+      "Bash(cp backend/Procfile .)",
+      "Bash(cp backend/.env.example .)"
+    ]
+  }
+}

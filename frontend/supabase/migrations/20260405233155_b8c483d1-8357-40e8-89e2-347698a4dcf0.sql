@@ -1,1 +1,0 @@
-ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS sending_paused boolean NOT NULL DEFAULT false;
